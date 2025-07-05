@@ -8,11 +8,13 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const API_BASE_URL = 'https://growth-pro-ai.onrender.com';
+
   const handleFormSubmit = async (name, location) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('http://localhost:5000/business-data', {
+      const response = await fetch(`${API_BASE_URL}/business-data`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, location }),
@@ -35,7 +37,7 @@ function App() {
     setError(null);
     try {
       const response = await fetch(
-        `http://localhost:5000/regenerate-headline?name=${encodeURIComponent(
+        `${API_BASE_URL}/regenerate-headline?name=${encodeURIComponent(
           businessData.name
         )}&location=${encodeURIComponent(businessData.location)}`
       );
@@ -53,10 +55,10 @@ function App() {
       <h1 className="text-3xl font-bold mb-6 text-center">Local Business Dashboard</h1>
       <InputForm onSubmit={handleFormSubmit} />
       {loading && (
-  <div className="flex justify-center mt-4">
-    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-500"></div>
-  </div>
-)}
+        <div className="flex justify-center mt-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-500"></div>
+        </div>
+      )}
       {error && <p className="text-red-500 mt-4">{error}</p>}
       {businessData && (
         <DisplayCard

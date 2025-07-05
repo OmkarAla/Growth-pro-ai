@@ -1,10 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: ['http://localhost:5173', 'https://growth-pro-ai-sandy.vercel.app/'] }));
 app.use(express.json());
 
 // Simulated SEO headlines
@@ -29,6 +29,8 @@ app.post('/business-data', (req, res) => {
     rating: 4.3, // Simulated
     reviews: 127, // Simulated
     headline,
+    name,
+    location
   });
 });
 
